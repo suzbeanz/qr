@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Uh oh, you just scanned a random QR Code! That can be dangerous!</title>
+  <meta name="description" content="QR codes can be dangerous! Learn how scammers use fake QR codes for phishing, malware, and fraud. Get essential tips to scan safely and protect yourself from QR code scams.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚨</text></svg>">
+  
+  <meta property="og:title" content="QR Code Safety Warning - Scan Smart, Stay Safe!">
+  <meta property="og:description" content="QR codes can be dangerous! Learn how scammers use fake QR codes for phishing, malware, and fraud. Get essential tips to scan safely and protect yourself.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yoursite.com">
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="QR Code Safety Warning - Scan Smart, Stay Safe!">
+  <meta name="twitter:description" content="QR codes can be dangerous! Learn how scammers use fake QR codes for phishing, malware, and fraud. Get essential tips to scan safely.">
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #2D2A2E;
+      --color-surface: #403E41;
+      --color-overlay: #5B595C;
+      --color-text: #FCFCFA;
+      --color-subtext: #C1C0C0;
+      --color-red: #FF6188;
+      --color-orange: #FC9867;
+      --color-yellow: #FFD866;
+      --color-green: #A9DC76;
+      --color-blue: #78DCE8;
+      --color-purple: #AB9DF2;
+      --color-pink: #FF6188;
+      
+      --bg-primary: var(--color-bg);
+      --bg-secondary: var(--color-surface);
+      --bg-tertiary: var(--color-overlay);
+      --text-primary: var(--color-text);
+      --text-secondary: var(--color-subtext);
+      --accent-primary: var(--color-blue);
+      --accent-danger: var(--color-red);
+      --accent-warning: var(--color-orange);
+      --accent-success: var(--color-green);
+      --accent-highlight: var(--color-purple);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    ::selection {
+      background: var(--accent-primary);
+      color: var(--bg-primary);
+    }
+
+    ::-moz-selection {
+      background: var(--accent-primary);
+      color: var(--bg-primary);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    header {
+      background: var(--bg-secondary);
+      padding: 3rem 0;
+      text-align: center;
+      border-bottom: 1px solid var(--bg-tertiary);
+    }
+
+    h1 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    h1 span {
+      color: var(--accent-danger);
+      text-decoration: underline;
+      text-decoration-color: var(--accent-danger);
+      text-underline-offset: 0.3em;
+      display: inline-block;
+      animation: ominous-wiggle 1.5s ease-in-out 1s 1 forwards;
+    }
+
+    @keyframes ominous-wiggle {
+      0% { transform: rotate(0deg) scale(1); }
+      10% { transform: rotate(-2deg) scale(1.02); }
+      20% { transform: rotate(2deg) scale(1.05); }
+      30% { transform: rotate(-3deg) scale(1.03); }
+      40% { transform: rotate(3deg) scale(1.06); }
+      50% { transform: rotate(-2deg) scale(1.04); }
+      60% { transform: rotate(2deg) scale(1.02); }
+      70% { transform: rotate(-1deg) scale(1.01); }
+      80% { transform: rotate(1deg) scale(1.03); }
+      90% { transform: rotate(-1deg) scale(1.01); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+
+    main {
+      padding: 4rem 0;
+    }
+
+    main > p {
+      text-align: center;
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
+
+    .alert {
+      background: var(--accent-danger);
+      color: var(--text-primary);
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      margin: 3rem auto;
+      max-width: 900px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      box-shadow: 0 8px 32px rgba(255, 97, 136, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--bg-tertiary);
+      border-radius: 16px;
+      padding: 2.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+    }
+
+    .card h2 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--bg-tertiary);
+    }
+
+    .card ul {
+      list-style: none;
+    }
+
+    .card li {
+      margin: 1rem 0;
+      padding: 0.75rem 0;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      border-bottom: 1px solid rgba(91, 89, 92, 0.3);
+    }
+
+    .card li:last-child {
+      border-bottom: none;
+    }
+
+    .card li::before {
+      flex-shrink: 0;
+      font-size: 1.25rem;
+      line-height: 1;
+      margin-top: 0.1rem;
+    }
+
+    .card:first-child h2 {
+      color: var(--accent-danger);
+    }
+
+    .card:first-child li {
+      color: var(--text-primary);
+    }
+
+    .card:last-child h2 {
+      color: var(--accent-success);
+    }
+
+    .card:last-child li {
+      color: var(--text-primary);
+    }
+
+    footer {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 4rem;
+      border-top: 1px solid var(--bg-tertiary);
+    }
+
+    footer a {
+      color: var(--accent-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    footer a:hover {
+      color: var(--accent-highlight);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1rem;
+      }
+      
+      header {
+        padding: 2rem 0;
+      }
+      
+      main {
+        padding: 2rem 0;
+      }
+      
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .card {
+        padding: 1.5rem;
+      }
+      
+      .alert {
+        padding: 1rem 1.5rem;
+        margin: 2rem auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.25rem;
+      }
+      
+      main > p {
+        font-size: 1rem;
+      }
+      
+      .card h2 {
+        font-size: 1.25rem;
+      }
+      
+      .card li {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Uh oh, you just scanned a random QR Code! That can be <span>dangerous!</span><br><br>🚨🚨🚨</h1>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <p>
+        QR codes are super convenient — but scanning from unknown sources can expose your device, your identity, and your data. QR Code scams are on the rise and it can be easy to get tricked.
+      </p>
+
+      <div class="alert">
+        <span>⚠️</span>
+        <span>Scammers can replace trusted QR codes with fake ones that trigger dangerous actions.</span>
+      </div>
+
+      <div class="cards-grid">
+        <div class="card">
+          <h2>QR Codes Can Do Scary Things, Like:</h2>
+          <ul>
+            <li><span>🔗</span> Redirect you to phishing sites to steal your passwords, even if you don't take any other action!</li>
+            <li><span>💾</span> Download malware or tracking apps without you knowing</li>
+            <li><span>📩</span> Send or receive texts or emails from your device secretly</li>
+            <li><span>💳</span> Trick you into fake payment pages and swipe your card info</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>Scan Smart & Stay Safe Out There </h2>
+          <ul>
+            <li><span>✅</span> Only scan codes you recognize and trust</li>
+            <li><span>🔍</span> Preview the URL (your phone usually shows it first) & make sure the original QR code hasn't been covered with a malicious fake!</li>
+            <li><span>📲</span> Use a scanner app with security alerts built-in (Like TrendMicro)</li>
+            <li><span>🚫</span> Skip codes on random flyers or stickers you find in public, like this one that could have scammed you!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <br>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Stay vigilant and spread the word! 👻</p>
+      <p>A PSA from <a href="https://www.linkedin.com/in/suzie-schmitt/" target="_blank">Suz</a> • 2025</p>
+      <p><a href="/readme.md" target="_blank">README</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>

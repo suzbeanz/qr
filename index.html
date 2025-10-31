@@ -71,12 +71,42 @@
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 2rem;
+    }
+
+    .emoji-flurry {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .emoji-particle {
+      position: absolute;
+      font-size: 3.5rem;
+      opacity: 0;
+      animation: flurryRise linear forwards;
+    }
+
+    @keyframes flurryRise {
+      0% {
+        opacity: 1;
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px) translateX(var(--drift)) rotate(360deg);
+      }
     }
 
     header {
@@ -389,6 +419,10 @@
         padding: 1rem 1.5rem;
         margin: 2rem auto;
       }
+
+      .emoji-particle {
+        font-size: 2.5rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -407,10 +441,16 @@
       .card li {
         font-size: 0.9rem;
       }
+
+      .emoji-particle {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 <body>
+
+  <div class="emoji-flurry" id="emojiFlurry"></div>
 
   <header>
     <div class="container">
@@ -451,9 +491,7 @@
         </div>
       </div>
     </div>
-    <br>
   </main>
-
   <footer>
     <div class="container">
       <p>Stay vigilant and spread the word! 👻</p>
@@ -461,5 +499,46 @@
     </div>
   </footer>
 
+  <script>
+    function createEmojiFlurry() {
+      const container = document.getElementById('emojiFlurry');
+      const emojis = ['👻', '🚨', '👻', '🔐', '🤖', '😱'];
+      const numberOfEmojis = 50;
+      
+      for (let i = 0; i < numberOfEmojis; i++) {
+        const emoji = document.createElement('div');
+        emoji.className = 'emoji-particle';
+        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        const startX = Math.random() * 100;
+        emoji.style.left = `${startX}%`;
+        
+        const drift = (Math.random() - 0.5) * 200;
+        emoji.style.setProperty('--drift', `${drift}px`);
+        
+        const duration = 2 + Math.random() * 3;
+        emoji.style.animationDuration = `${duration}s`;
+        
+        const delay = Math.random() * 1.5;
+        emoji.style.animationDelay = `${delay}s`;
+        
+        const size = 2.5 + Math.random() * 2;
+        emoji.style.fontSize = `${size}rem`;
+        
+        container.appendChild(emoji);
+        
+        setTimeout(() => {
+          emoji.remove();
+        }, (duration + delay) * 1000);
+      }
+      
+      setTimeout(() => {
+        container.remove();
+      }, 7000);
+    }
+    
+    window.addEventListener('load', createEmojiFlurry);
+  </script>
+
 </body>
-</html>
+</html
